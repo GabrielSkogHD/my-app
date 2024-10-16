@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Delcron's Raspberry Pi System Dashboard
 
-## Getting Started
+This project is a Next.js application that provides a real-time monitoring dashboard for a Raspberry Pi. The app displays system information, such as CPU usage, temperature, memory usage, and more, in a user-friendly and visually appealing interface. It leverages Cloudflare Tunnels to make the Raspberry Pi accessible over the internet, so users can view system stats remotely.
+Features
 
-First, run the development server:
+    Real-Time System Monitoring: View CPU, memory usage, and temperature updates in real time, fetched dynamically from the Raspberry Pi.
+    Responsive Design: Optimized layout that works on various screen sizes, from desktops to mobile devices.
+    Cloudflare Tunnel Integration: Securely access your Raspberry Pi dashboard remotely via a custom domain.
+    Custom Styling: Utilizes styled components and progress bars to visualize system stats clearly.
+    Expandable: Easily customizable to add more features or system stats.
 
-```bash
+Getting Started
+
+To run this project locally, use the following commands:
+
+bash
+
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser to view the dashboard. If deploying remotely, use your Cloudflare tunnel URL.
+Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    /app - Main application directory containing pages, components, and API routes.
+    /public/images - Static assets, including images used in the dashboard.
+    /api/system-details - API endpoint fetching system stats from the Raspberry Pi.
+    /components - Reusable UI components for better organization and styling.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Usage
 
-## Learn More
+    Clone the Repository:
 
-To learn more about Next.js, take a look at the following resources:
+    bash
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+git clone https://github.com/GabrielSkogHD/my-app.git
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Install Dependencies:
 
-## Deploy on Vercel
+bash
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+npm install
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Run Development Server:
+
+bash
+
+    npm run dev
+
+    View the App:
+        Local: Open http://localhost:3000
+        Remote: Use your Cloudflare Tunnel URL.
+
+Contributions
+
+Contributions to improve the project are welcome. Feel free to open issues or submit pull requests on GitHub.
+Future Enhancements
+
+    Animations and Visual Effects: Add interactive elements (e.g., animated icons) to enhance user experience.
+    Custom Notifications: Alert when CPU or memory usage exceeds certain thresholds.
+    Expandable Widgets: Integrate new system monitoring widgets, such as network activity or storage info.
