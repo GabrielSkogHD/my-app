@@ -1,9 +1,46 @@
-import { getSystemDetails } from "../system"; // Adjusted import path
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"; // Updated path
-import { Progress } from "../../components/ui/progress"; // Updated path
+"use client";
 
-export default async function Home() {
-    const systemInfo = await getSystemDetails();
+import { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
+import { Progress } from "../../components/ui/progress";
+
+interface SystemInfo {
+    os: {
+        hostname: string;
+        platform: string;
+        arch: string;
+    };
+    cpuTemp: number;
+    cpuUsage: number[];
+    memoryUsage: {
+        total: number;
+        used: number;
+        free: number;
+    };
+}
+
+export default function Stats() {
+    const [systemInfo, setSystemInfo] = useState<SystemInfo | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch("/api/system-details");
+            const info = await response.json();
+            setSystemInfo(info);
+        };
+
+        fetchData(); // Initial fetch
+
+        const interval = setInterval(() => {
+            fetchData(); // Fetch every 3 seconds
+        }, 3000);
+
+        return () => clearInterval(interval); // Cleanup interval on component unmount
+    }, []);
+
+    if (!systemInfo) {
+        return <div>Loading...</div>; // Show loading while data is being fetched
+    }
 
     return (
         <main className="min-h-screen bg-background flex flex-col items-center justify-center p-6">
@@ -16,9 +53,9 @@ export default async function Home() {
                 <CardContent className="space-y-4">
                     <div className="space-y-2">
                         {[
-                            ["Hostname", systemInfo.os.hostname()],
-                            ["Platform", systemInfo.os.platform()],
-                            ["Architecture", systemInfo.os.arch()],
+                            ["Hostname", systemInfo.os.hostname],
+                            ["Platform", systemInfo.os.platform],
+                            ["Architecture", systemInfo.os.arch],
                             ["CPU Temperature", `${systemInfo.cpuTemp.toFixed(1)}°C`],
                         ].map(([label, value]) => (
                             <div key={label} className="flex justify-between text-sm">
@@ -30,13 +67,13 @@ export default async function Home() {
 
                     <div className="space-y-2">
                         <h3 className="text-lg font-semibold text-foreground">CPU Usage</h3>
-                        {systemInfo.cpuUsage.map((usage: any, index: number) => (
+                        {systemInfo.cpuUsage.map((usage, index) => (
                             <div key={index} className="space-y-1">
                                 <div className="flex justify-between text-sm text-muted-foreground">
                                     <span>Core {index}</span>
                                     <span>{usage}%</span>
                                 </div>
-                                <Progress value={parseFloat(usage)} className="h-2" />
+                                <Progress value={usage} className="h-2" />
                             </div>
                         ))}
                     </div>
