@@ -4,7 +4,12 @@ import path from "path";
 
 const suits = ["♠", "♥", "♦", "♣"];
 const ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-const deck = suits.flatMap(suit => ranks.map(rank => `${rank}${suit}`));
+const standardDeck = suits.flatMap(suit => ranks.map(rank => `${rank}${suit}`));
+
+// Add four jokers, one for each suit
+const jokers = suits.map(suit => `Joker${suit}`);
+
+const deck = [...standardDeck, ...jokers];
 
 const filePath = path.join(process.cwd(), "card_state.json");
 
