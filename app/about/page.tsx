@@ -27,7 +27,7 @@ export default function About() {
                     <div className="mb-6">
                         <h2 className="text-xl font-semibold text-foreground">Education</h2>
                         <p className="text-lg text-muted-foreground mt-2">
-                            - 📖 <strong>Lund University, LTH</strong> – Computer Science Engineer (Year 3)
+                            - 📖 <strong>Lund University, LTH</strong> – Computer Engineer (Year 3)
                         </p>
                     </div>
 
