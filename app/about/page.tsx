@@ -27,7 +27,7 @@ export default function About() {
                     <div className="mb-6">
                         <h2 className="text-xl font-semibold text-foreground">Education</h2>
                         <p className="text-lg text-muted-foreground mt-2">
-                            - 📖 <strong>Lund University, LTH</strong> – Computer Engineer (Year 3)
+                            - 📖 <strong>Lund University, LTH</strong> – Computer Engineer (Year 4)
                         </p>
                     </div>
 
@@ -35,8 +35,8 @@ export default function About() {
                     <div className="mb-6">
                         <h2 className="text-xl font-semibold text-foreground">Projects</h2>
                         <ul className="text-lg text-muted-foreground mt-2 list-disc pl-6">
-                            <li>🚀 <strong>Raspberry Pi Web Dashboard</strong> – Built with Next.js, Cloudflare Tunnel</li>
-                            <li>🔒 <strong>Webshop setup on Shopify</strong> – Implemented HTML, JavaScript and CSS</li>
+                            <li> <strong>Raspberry Pi Web Dashboard</strong> – Built with Next.js, Cloudflare Tunnel</li>
+                            <li> <strong>Webshop setup on Shopify</strong> – Implemented HTML, JavaScript and CSS</li>
                             <Link href="https://swemallow.se" className="text-blue-500 hover:underline ml-1">
                                 swemallow.se
                             </Link>
