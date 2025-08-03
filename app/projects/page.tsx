@@ -28,7 +28,14 @@ export default function Projects() {
                         />
                         <p className="mt-3 text-center text-muted-foreground">Newsfeed Automation Bot</p>
                     </Link>
-
+                    <Link href="/projects/selfhosted" className="flex flex-col items-center">
+                        <img
+                            src="/images/pi.jpg"
+                            alt="RSS Bot"
+                            className="rounded-lg shadow-lg hover:scale-105 transition w-full max-w-[280px]"
+                        />
+                        <p className="mt-3 text-center text-muted-foreground">Self hosted website and media streamer</p>
+                    </Link>
                     {/* Lägg till fler projekt här */}
                 </div>
             </main>
