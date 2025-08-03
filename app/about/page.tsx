@@ -27,7 +27,7 @@ export default function About() {
                     <div className="mb-6">
                         <h2 className="text-xl font-semibold text-foreground">Education</h2>
                         <p className="text-lg text-muted-foreground mt-2">
-                            - 📖 <strong>Lund University, LTH</strong> – Computer Engineer (Year 3)
+                            -  <strong>Lund University, LTH</strong>  Computer Engineer (Year 4)
                         </p>
                     </div>
 
@@ -35,12 +35,14 @@ export default function About() {
                     <div className="mb-6">
                         <h2 className="text-xl font-semibold text-foreground">Projects</h2>
                         <ul className="text-lg text-muted-foreground mt-2 list-disc pl-6">
-                            <li>🚀 <strong>Raspberry Pi Web Dashboard</strong> – Built with Next.js, Cloudflare Tunnel</li>
-                            <li>🔒 <strong>Webshop setup on Shopify</strong> – Implemented HTML, JavaScript and CSS</li>
+                            <li> <strong>Raspberry Pi Web Dashboard</strong>  Built with Next.js, Cloudflare Tunnel</li>
+                            <li> <strong>Webshop setup on Shopify</strong>  Implemented HTML, JavaScript and CSS</li>
                             <Link href="https://swemallow.se" className="text-blue-500 hover:underline ml-1">
                                 swemallow.se
                             </Link>
-                            <li>🎬 <strong>Media Server Automation</strong> – Set up Radarr, Sonarr, and qBittorrent on Pi</li>
+                            <li> <strong>Media Server Automation</strong> Set up Radarr, Sonarr, and qBittorrent on Pi</li>
+                            <li> <strong>Self hosted n8n </strong> using docker and cloudflared. Implemented a daily newsletter workflow that scraped news articles using RSS feed from 5 sources and used OpenAI's API to make summaries. The summary is sent to my own Discord server for everyone to enjoy.</li>
+
                         </ul>
                     </div>
 

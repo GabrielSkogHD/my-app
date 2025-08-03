@@ -49,6 +49,10 @@ export default function Home() {
                         <Link href="/about" className="bg-gray-700 text-white px-6 py-3 rounded-lg text-xl font-semibold shadow-md hover:bg-gray-800 transition text-center">
                             ℹ️ About Me
                         </Link>
+                        <Link href="/projects" className="bg-green-600 text-white px-6 py-3 rounded-lg text-xl font-semibold shadow-md hover:bg-green-700 transition text-center">
+                            🛠️ My Projects
+                        </Link>
+
                     </div>
                 </section>
             </main>
