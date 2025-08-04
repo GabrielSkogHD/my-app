@@ -2,6 +2,12 @@
 
 This project is a Next.js application that provides a real-time monitoring dashboard for a Raspberry Pi. The app displays system information, such as CPU usage, temperature, memory usage, and more, in a user-friendly and visually appealing interface. It leverages Cloudflare Tunnels to make the Raspberry Pi accessible over the internet, so users can view system stats remotely.
 Features
+
+## Note
+The implementation of getting the real time system monitoring may differ from system to system, so make sure to investigate how your machine displays temp, cpu and other information. To make sure you have the correct imports please visit 
+
+    myapp/system.ts
+
 ## Real-Time System Monitoring: 
 View CPU, memory usage, and temperature updates in real time, fetched dynamically from the Raspberry Pi.
 Responsive Design: Optimized layout that works on various screen sizes, from desktops to mobile devices.
@@ -11,37 +17,25 @@ Responsive Design: Optimized layout that works on various screen sizes, from des
 
 # Getting Started
 
-To run this project locally, use the following commands:
-
-    
-    npm install
-    npm run dev
-
-Open http://localhost:3000 in your browser to view the dashboard. If deploying remotely, use your Cloudflare tunnel URL.
-# Project Structure
+## Project Structure
 
     /app - Main application directory containing pages, components, and API routes.
     /public/images - Static assets, including images used in the dashboard.
     /api/system-details - API endpoint fetching system stats from the Raspberry Pi.
     /components - Reusable UI components for better organization and styling.
 
-# Usage
+## Usage
 
 Clone the Repository:
-
-    
 
     git clone https://github.com/GabrielSkogHD/my-app.git
 
 # Install Dependencies:
 
-
-
+    cd my-app
     npm install
 
 # Run Development Server:
-
-
 
     npm run dev
 
