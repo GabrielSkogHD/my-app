@@ -6,7 +6,7 @@ Features
 ## Note
 The implementation of getting the real time system monitoring may differ from system to system, so make sure to investigate how your machine displays temp, cpu and other information. To make sure you have the correct imports please visit 
 
-    myapp/system.ts
+    myapp/app/system.ts
 
 ## Real-Time System Monitoring: 
 View CPU, memory usage, and temperature updates in real time, fetched dynamically from the Raspberry Pi.
