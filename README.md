@@ -43,3 +43,23 @@ View the App:
         Local: Open http://localhost:3000
         Remote: Use your Cloudflare Tunnel URL.
 
+# Run production server:
+
+    npm start
+
+# Run with systemctl
+Locate /etc/systemd/system/myapp.service and add:
+    [Unit]
+    Description=Next.js App
+    After=network.target
+
+    [Service]
+    Type=simple
+    User=YOUR_USERNAME
+    WorkingDirectory=PATH_TO_PROJECT
+    ExecStart=/usr/bin/npm start
+    Restart=always
+    Environment=NODE_ENV=production
+
+    [Install]
+    WantedBy=multi-user.target
