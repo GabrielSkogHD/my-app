@@ -1,4 +1,4 @@
-# Delcron's Raspberry Pi System Dashboard
+# Raspberry pi website with real time system monitor
 
 This project is a Next.js application that provides a real-time monitoring dashboard for a Raspberry Pi. The app displays system information, such as CPU usage, temperature, memory usage, and more, in a user-friendly and visually appealing interface. It leverages Cloudflare Tunnels to make the Raspberry Pi accessible over the internet, so users can view system stats remotely.
 Features
@@ -48,7 +48,11 @@ View the App:
     npm start
 
 # Run with systemctl
-Locate /etc/systemd/system/myapp.service and add:
+Locate 
+
+    /etc/systemd/system/myapp.service 
+and add:
+    
     [Unit]
     Description=Next.js App
     After=network.target
