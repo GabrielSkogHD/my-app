@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Breadcrumbs from "../components/ui/Breadcrumbs";
+import Script from "next/script";
+
 
 
 const geistSans = localFont({
@@ -30,10 +32,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-7F0GNZQ39E"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-7F0GNZQ39E');
+          `}
+        </Script>
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Breadcrumbs /> {/* 👈 placeras här */}
+        <Breadcrumbs />
         {children}
       </body>
     </html>
   );
 }
+
