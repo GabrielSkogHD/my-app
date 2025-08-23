@@ -36,6 +36,14 @@ export default function Projects() {
                         />
                         <p className="mt-3 text-center text-muted-foreground">Self hosted website and media streamer</p>
                     </Link>
+                    <Link href="/projects/3d_printing" className="flex flex-col items-center">
+                        <img
+                            src="/images/3d.webp"
+                            alt="3d printing"
+                            className="rounded-lg shadow-lg hover:scale-105 transition w-full max-w-[280px]"
+                        />
+                        <p className="mt-3 text-center text-muted-foreground">3d printing</p>
+                    </Link>
                     {/* Lägg till fler projekt här */}
                 </div>
             </main>
