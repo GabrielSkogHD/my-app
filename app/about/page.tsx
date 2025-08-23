@@ -56,6 +56,12 @@ export default function About() {
                         </p>
                     </div>
                 </section>
+
+                <img
+                    src="/images/me1.JPG"
+                    alt="Web development"
+                    className="rounded-lg shadow-lg hover:scale-110 transition mb-10 max-w-md"
+                />
             </main>
         </>
     );
