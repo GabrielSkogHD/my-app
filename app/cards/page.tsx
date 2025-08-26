@@ -24,7 +24,7 @@ export default function CardPage() {
 
     return (
         <div className="p-4 min-h-screen flex flex-col items-center justify-center bg-background">
-            <h1 className="text-3xl font-bold mb-6 text-foreground">🃏 Daily Card Draw</h1>
+            <h1 className="text-3xl font-bold mb-6 text-foreground"> Daily Card Draw</h1>
             <div className="flex gap-4 mb-6">
                 <button
                     onClick={draw}
