@@ -15,7 +15,7 @@ export default function Projects() {
                         <img
                             src="/images/js.png"
                             alt="Web development"
-                            className="rounded-lg shadow-lg hover:scale-105 transition w-full max-w-[180px]"
+                            className="rounded-lg shadow-lg hover:scale-105 transition w-full max-w-[150px]"
                         />
                         <p className="mt-3 text-center text-muted-foreground">Web Development</p>
                     </Link>
@@ -40,9 +40,17 @@ export default function Projects() {
                         <img
                             src="/images/3d.webp"
                             alt="3d printing"
-                            className="rounded-lg shadow-lg hover:scale-105 transition w-full max-w-[280px]"
+                            className="rounded-lg shadow-lg hover:scale-105 transition w-full max-w-[230px]"
                         />
                         <p className="mt-3 text-center text-muted-foreground">3d printing</p>
+                    </Link>
+                    <Link href="/projects/JavaDesign" className="flex flex-col items-center">
+                        <img
+                            src="/images/java.png"
+                            alt="JavaDesign"
+                            className="rounded-lg shadow-lg hover:scale-105 transition w-full max-w-[280px]"
+                        />
+                        <p className="mt-3 text-center text-muted-foreground">Java Design </p>
                     </Link>
                     {/* Lägg till fler projekt här */}
                 </div>
