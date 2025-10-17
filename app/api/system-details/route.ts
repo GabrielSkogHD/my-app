@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic';   // inga snapshots/ISR
 export const revalidate = 0;              // ingen återanvändning
 
 import { NextResponse } from 'next/server';
-import { getSystemDetails } from '@/app/system'; // justera import om du saknar "@"
+import { getSystemDetails } from '../../system';
 
 export async function GET() {
     const data = await getSystemDetails();
