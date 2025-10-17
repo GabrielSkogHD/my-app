@@ -1,8 +1,8 @@
 // app/stats/page.tsx
 export const dynamic = "force-dynamic";
 
-import DynamicStats from "./DynamicStats";
+import ClusterStats from "./ClusterStats";
 
 export default function StatsPage() {
-    return <DynamicStats />;
+    return <ClusterStats />;
 }
