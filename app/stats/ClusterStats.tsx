@@ -4,10 +4,18 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
 import { Progress } from "../../components/ui/progress";
 
+interface NodeData {
+    hostname: string;
+    cpuTemp: number;
+    cpuUsage: number[];
+    memoryUsed: number;
+    memoryTotal: number;
+}
+
 export default function ClusterStats() {
     const [currentTime, setCurrentTime] = useState<string>("");
-    const [pi5Data, setPi5Data] = useState<any>(null);
-    const [pi4Data, setPi4Data] = useState<any>(null);
+    const [pi5Data, setPi5Data] = useState<NodeData | null>(null);
+    const [pi4Data, setPi4Data] = useState<NodeData | null>(null);
     const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
     
     const updateData = () => {
@@ -134,7 +142,7 @@ export default function ClusterStats() {
 
                                 <div className="space-y-2">
                                     <h3 className="text-lg font-semibold text-foreground">CPU Usage</h3>
-                                    {pi5Data.cpuUsage.map((usage, index) => (
+                                    {pi5Data.cpuUsage.map((usage: number, index: number) => (
                                         <div key={index} className="space-y-1">
                                             <div className="flex justify-between text-sm text-muted-foreground">
                                                 <span>Core {index}</span>
@@ -199,7 +207,7 @@ export default function ClusterStats() {
 
                                 <div className="space-y-2">
                                     <h3 className="text-lg font-semibold text-foreground">CPU Usage</h3>
-                                    {pi4Data.cpuUsage.map((usage, index) => (
+                                    {pi4Data.cpuUsage.map((usage: number, index: number) => (
                                         <div key={index} className="space-y-1">
                                             <div className="flex justify-between text-sm text-muted-foreground">
                                                 <span>Core {index}</span>
