@@ -17,9 +17,9 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
-      placement:
-        constraints:
-          - node.role == worker # Kör bara på worker-noder (inte på manager)
+        # placement:
+        # constraints:
+        # - node.role == worker # Kör på alla noder
     environment:
       - NODE_ENV=production
     networks:

@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Kopiera package-filer först för bättre Docker cache
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci
 
 # Kopiera resten av koden
 COPY . .
