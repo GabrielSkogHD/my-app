@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  portfolio:
+    image: gabriel-portfolio:latest
+    build: .
+    ports:
+      - "80:3000" # Mappar port 80 på Pi-datorerna till port 3000 i containern
+    volumes:
+      # MAGIN FÖR CPU-TEMP: Mappar temperaturfilen från hosten in i containern
+      - /sys/class/thermal/thermal_zone0:/sys/class/thermal/thermal_zone0:ro
+    hostname: '{{.Node.Hostname}}' # MAGIN FÖR HOSTNAME: Sätter containerns hostname till den Pi den körs på
+    deploy:
+      replicas: 2 # Vi startar 2 instanser direkt för lastbalansering!
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.role == worker # Kör bara på worker-noder (inte på manager)
+    environment:
+      - NODE_ENV=production
+    networks:
+      - portfolio-network
+
+networks:
+  portfolio-network:
+    driver: overlay
+    attachable: true
