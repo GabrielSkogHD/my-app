@@ -52,6 +52,14 @@ export default function Projects() {
                         />
                         <p className="mt-3 text-center text-muted-foreground">Java Design </p>
                     </Link>
+                    <Link href="/projects/clusters" className="flex flex-col items-center">
+                        <img
+                            src="/images/cluster.png"
+                            alt="Clusters"
+                            className="rounded-lg shadow-lg hover:scale-105 transition w-full max-w-[180px]"
+                        />
+                        <p className="mt-3 text-center text-muted-foreground">Raspberry Pi clusters </p>
+                    </Link>
                     {/* Lägg till fler projekt här */}
                 </div>
             </main>
