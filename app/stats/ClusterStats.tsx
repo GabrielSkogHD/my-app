@@ -14,10 +14,21 @@ interface NodeData {
 
 export default function ClusterStats() {
     const [currentTime, setCurrentTime] = useState<string>("");
-    const [pi5Data, setPi5Data] = useState<NodeData | null>(null);
-    const [pi4Data, setPi4Data] = useState<NodeData | null>(null);
+    const [pi5Data, setPi5Data] = useState<NodeData>({
+        hostname: "raspberrypi5",
+        cpuTemp: 45.2,
+        cpuUsage: [5.2, 3.1, 2.8, 4.1],
+        memoryUsed: 2.45,
+        memoryTotal: 7.87
+    });
+    const [pi4Data, setPi4Data] = useState<NodeData>({
+        hostname: "pi4",
+        cpuTemp: 48.5,
+        cpuUsage: [6.0, 5.9, 1.0, 5.9],
+        memoryUsed: 2.8,
+        memoryTotal: 7.87
+    });
     const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
     
     const updateData = () => {
         setIsRefreshing(true);
@@ -25,7 +36,7 @@ export default function ClusterStats() {
         
         setCurrentTime(new Date().toLocaleTimeString());
         
-        const newPi5Data: NodeData = {
+        setPi5Data({
             hostname: "raspberrypi5",
             cpuTemp: 45.2 + Math.sin(now / 15000) * 2,
             cpuUsage: [
@@ -36,9 +47,9 @@ export default function ClusterStats() {
             ],
             memoryUsed: Math.max(0, 2.45 + Math.sin(now / 20000) * 0.3),
             memoryTotal: 7.87
-        };
+        });
 
-        const newPi4Data: NodeData = {
+        setPi4Data({
             hostname: "pi4",
             cpuTemp: 48.5 + Math.cos(now / 12000) * 1.5,
             cpuUsage: [
@@ -49,41 +60,21 @@ export default function ClusterStats() {
             ],
             memoryUsed: Math.max(0, 2.8 + Math.cos(now / 18000) * 0.4),
             memoryTotal: 7.87
-        };
-        
-        setPi5Data(newPi5Data);
-        setPi4Data(newPi4Data);
-        setIsLoaded(true);
+        });
         
         // Reset refreshing state after a short delay
         setTimeout(() => setIsRefreshing(false), 500);
     };
 
     useEffect(() => {
-        // Small delay to ensure proper hydration
-        const timer = setTimeout(() => {
-            updateData();
-        }, 100);
+        // Set initial time
+        setCurrentTime(new Date().toLocaleTimeString());
         
         // Auto-refresh every 5 seconds
         const interval = setInterval(updateData, 5000);
         
-        return () => {
-            clearTimeout(timer);
-            clearInterval(interval);
-        };
+        return () => clearInterval(interval);
     }, []);
-
-    if (!isLoaded || !pi5Data || !pi4Data) {
-        return (
-            <main className="min-h-screen bg-background flex flex-col items-center justify-center p-6">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-                    <p className="text-muted-foreground">Loading cluster stats...</p>
-                </div>
-            </main>
-        );
-    }
 
     return (
         <main className="min-h-screen bg-background p-6">
