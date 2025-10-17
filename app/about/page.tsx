@@ -42,6 +42,7 @@ export default function About() {
                             </Link>
                             <li> <strong>Media Server Automation</strong> Set up Radarr, Sonarr, and qBittorrent on Pi</li>
                             <li> <strong>Self hosted n8n </strong> using docker and cloudflared. Implemented a daily newsletter workflow that scraped news articles using RSS feed from 5 sources and used OpenAI's API to make summaries. The summary is sent to my own Discord server for everyone to enjoy.</li>
+                            <li> <strong>Raspberry Pi Cluster with Docker Swarm</strong> – Deployed and managed distributed containerized applications including Nextcloud, demonstrating fault tolerance, load balancing, and cluster orchestration skills.</li>
 
                         </ul>
                     </div>
