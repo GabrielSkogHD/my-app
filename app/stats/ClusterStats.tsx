@@ -37,8 +37,11 @@ export default function ClusterStats() {
 
     const fetchClusterData = async () => {
         try {
+            console.log("Fetching cluster data...");
             const response = await fetch("/api/cluster-stats", { cache: "no-store" });
+            console.log("Response status:", response.status);
             const data = await response.json();
+            console.log("Data received:", data);
             setClusterData(data);
         } catch (error) {
             console.error("Error fetching cluster data:", error);

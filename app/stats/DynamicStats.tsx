@@ -23,9 +23,13 @@ export default function DynamicStats() {
     const [systemInfo, setSystemInfo] = useState<SystemInfo | null>(null);
 
     const fetchData = async () => {
-        const response = await fetch("/api/system-details", { cache: "no-store" });
-        const info = await response.json();
-        setSystemInfo(info);
+        try {
+            const response = await fetch("/api/system-details", { cache: "no-store" });
+            const info = await response.json();
+            setSystemInfo(info);
+        } catch (error) {
+            console.error("Fetch error:", error);
+        }
     };
 
     useEffect(() => {
