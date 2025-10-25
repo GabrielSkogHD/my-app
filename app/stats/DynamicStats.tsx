@@ -48,7 +48,12 @@ export default function DynamicStats() {
 
     const fetchPi4Data = async () => {
         try {
-            const response = await fetch("http://192.168.50.49:3001/api/system-details", { cache: "no-store" });
+            // Use hostname for localhost, IP for production
+            const pi4Url = typeof window !== 'undefined' && window.location.hostname === 'localhost' 
+                ? "http://pi4:3001/api/system-details"
+                : "http://192.168.50.49:3001/api/system-details";
+            
+            const response = await fetch(pi4Url, { cache: "no-store" });
             if (response.ok) {
                 const info = await response.json();
                 setPi4Data(info);
@@ -64,7 +69,12 @@ export default function DynamicStats() {
 
     const fetchCluter2Data = async () => {
         try {
-            const response = await fetch("http://192.168.50.50:3001/api/system-details", { cache: "no-store" });
+            // Use hostname for localhost, IP for production
+            const cluter2Url = typeof window !== 'undefined' && window.location.hostname === 'localhost' 
+                ? "http://cluter2:3001/api/system-details"
+                : "http://192.168.50.50:3001/api/system-details";
+            
+            const response = await fetch(cluter2Url, { cache: "no-store" });
             if (response.ok) {
                 const info = await response.json();
                 setCluter2Data(info);
