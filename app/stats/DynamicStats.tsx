@@ -47,27 +47,9 @@ export default function DynamicStats() {
 
     const fetchCluter2Data = async () => {
         try {
-            // For now, simulate cluter2 data since SSH doesn't work
-            const simulatedData = {
-                os: {
-                    hostname: "cluter2",
-                    platform: "linux",
-                    arch: "arm64"
-                },
-                cpuTemp: 35.2 + Math.sin(Date.now() / 10000) * 0.5,
-                cpuUsage: [
-                    Math.round((Math.max(0, 3 + Math.sin(Date.now() / 6000) * 2)) * 10) / 10,
-                    Math.round((Math.max(0, 2.5 + Math.cos(Date.now() / 8000) * 1.5)) * 10) / 10,
-                    Math.round((Math.max(0, 1.5 + Math.sin(Date.now() / 7000) * 1)) * 10) / 10,
-                    Math.round((Math.max(0, 2 + Math.cos(Date.now() / 9000) * 2)) * 10) / 10
-                ],
-                memoryUsage: {
-                    total: 4.0,
-                    used: Math.round((0.9 + Math.sin(Date.now() / 18000) * 0.08) * 100) / 100,
-                    free: Math.round((3.1 - Math.sin(Date.now() / 18000) * 0.08) * 100) / 100
-                }
-            };
-            setCluter2Data(simulatedData);
+            const response = await fetch("http://192.168.50.50:3001/api/system-details", { cache: "no-store" });
+            const info = await response.json();
+            setCluter2Data(info);
         } catch (error) {
             console.error("Error fetching cluter2 data:", error);
         }
@@ -153,13 +135,12 @@ export default function DynamicStats() {
                                     {node.hostname}
                                     {index === 0 && " (Real Data - 8GB RAM)"}
                                     {index === 1 && " (Real Data - 4GB RAM)"}
-                                    {index === 2 && " (Simulated - 4GB RAM)"}
+                                    {index === 2 && " (Real Data - 4GB RAM)"}
                                 </h2>
                                 <div className="flex items-center space-x-2">
                                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                                     <span className="text-sm text-green-600 font-medium">Online</span>
-                                    {index <= 1 && <span className="text-xs text-blue-600">(Live)</span>}
-                                    {index === 2 && <span className="text-xs text-muted-foreground">(Simulated)</span>}
+                                    <span className="text-xs text-blue-600">(Live)</span>
                                 </div>
                             </div>
 
