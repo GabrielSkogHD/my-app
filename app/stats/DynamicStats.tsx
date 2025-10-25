@@ -23,35 +23,58 @@ export default function DynamicStats() {
     const [systemInfo, setSystemInfo] = useState<SystemInfo | null>(null);
     const [pi4Data, setPi4Data] = useState<SystemInfo | null>(null);
     const [cluter2Data, setCluter2Data] = useState<SystemInfo | null>(null);
+    const [nodeStatus, setNodeStatus] = useState({
+        raspberrypi5: true,
+        pi4: true,
+        cluter2: true
+    });
 
     const fetchData = async () => {
         try {
             // Fetch from raspberrypi5 (current node)
             const response = await fetch("/api/system-details", { cache: "no-store" });
-            const info = await response.json();
-            setSystemInfo(info);
+            if (response.ok) {
+                const info = await response.json();
+                setSystemInfo(info);
+                setNodeStatus(prev => ({ ...prev, raspberrypi5: true }));
+            } else {
+                setNodeStatus(prev => ({ ...prev, raspberrypi5: false }));
+            }
         } catch (error) {
             console.error("Error fetching raspberrypi5 data:", error);
+            setNodeStatus(prev => ({ ...prev, raspberrypi5: false }));
         }
     };
 
     const fetchPi4Data = async () => {
         try {
             const response = await fetch("http://pi4:3001/api/system-details", { cache: "no-store" });
-            const info = await response.json();
-            setPi4Data(info);
+            if (response.ok) {
+                const info = await response.json();
+                setPi4Data(info);
+                setNodeStatus(prev => ({ ...prev, pi4: true }));
+            } else {
+                setNodeStatus(prev => ({ ...prev, pi4: false }));
+            }
         } catch (error) {
             console.error("Error fetching pi4 data:", error);
+            setNodeStatus(prev => ({ ...prev, pi4: false }));
         }
     };
 
     const fetchCluter2Data = async () => {
         try {
             const response = await fetch("http://cluter2:3001/api/system-details", { cache: "no-store" });
-            const info = await response.json();
-            setCluter2Data(info);
+            if (response.ok) {
+                const info = await response.json();
+                setCluter2Data(info);
+                setNodeStatus(prev => ({ ...prev, cluter2: true }));
+            } else {
+                setNodeStatus(prev => ({ ...prev, cluter2: false }));
+            }
         } catch (error) {
             console.error("Error fetching cluter2 data:", error);
+            setNodeStatus(prev => ({ ...prev, cluter2: false }));
         }
     };
 
@@ -138,9 +161,20 @@ export default function DynamicStats() {
                                     {index === 2 && " (Real Data - 4GB RAM)"}
                                 </h2>
                                 <div className="flex items-center space-x-2">
-                                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                                    <span className="text-sm text-green-600 font-medium">Online</span>
-                                    <span className="text-xs text-blue-600">(Live)</span>
+                                    {(() => {
+                                        const isOnline = index === 0 ? nodeStatus.raspberrypi5 :
+                                            index === 1 ? nodeStatus.pi4 :
+                                                nodeStatus.cluter2;
+                                        return (
+                                            <>
+                                                <div className={`w-3 h-3 rounded-full ${isOnline ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
+                                                <span className={`text-sm font-medium ${isOnline ? 'text-green-600' : 'text-red-600'}`}>
+                                                    {isOnline ? 'Online' : 'Offline'}
+                                                </span>
+                                                {isOnline && <span className="text-xs text-blue-600">(Live)</span>}
+                                            </>
+                                        );
+                                    })()}
                                 </div>
                             </div>
 
