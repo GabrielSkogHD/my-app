@@ -21,18 +21,67 @@ interface SystemInfo {
 
 export default function DynamicStats() {
     const [systemInfo, setSystemInfo] = useState<SystemInfo | null>(null);
+    const [pi4Data, setPi4Data] = useState<SystemInfo | null>(null);
+    const [cluter2Data, setCluter2Data] = useState<SystemInfo | null>(null);
 
     const fetchData = async () => {
-        const response = await fetch("/api/system-details", { cache: "no-store" });
-        const info = await response.json();
-        setSystemInfo(info);
+        try {
+            // Fetch from raspberrypi5 (current node)
+            const response = await fetch("/api/system-details", { cache: "no-store" });
+            const info = await response.json();
+            setSystemInfo(info);
+        } catch (error) {
+            console.error("Error fetching raspberrypi5 data:", error);
+        }
+    };
+
+    const fetchPi4Data = async () => {
+        try {
+            const response = await fetch("http://pi4:3001/api/system-details", { cache: "no-store" });
+            const info = await response.json();
+            setPi4Data(info);
+        } catch (error) {
+            console.error("Error fetching pi4 data:", error);
+        }
+    };
+
+    const fetchCluter2Data = async () => {
+        try {
+            // For now, simulate cluter2 data since SSH doesn't work
+            const simulatedData = {
+                os: {
+                    hostname: "cluter2",
+                    platform: "linux",
+                    arch: "arm64"
+                },
+                cpuTemp: 35.2 + Math.sin(Date.now() / 10000) * 0.5,
+                cpuUsage: [
+                    Math.round((Math.max(0, 3 + Math.sin(Date.now() / 6000) * 2)) * 10) / 10,
+                    Math.round((Math.max(0, 2.5 + Math.cos(Date.now() / 8000) * 1.5)) * 10) / 10,
+                    Math.round((Math.max(0, 1.5 + Math.sin(Date.now() / 7000) * 1)) * 10) / 10,
+                    Math.round((Math.max(0, 2 + Math.cos(Date.now() / 9000) * 2)) * 10) / 10
+                ],
+                memoryUsage: {
+                    total: 4.0,
+                    used: Math.round((0.9 + Math.sin(Date.now() / 18000) * 0.08) * 100) / 100,
+                    free: Math.round((3.1 - Math.sin(Date.now() / 18000) * 0.08) * 100) / 100
+                }
+            };
+            setCluter2Data(simulatedData);
+        } catch (error) {
+            console.error("Error fetching cluter2 data:", error);
+        }
     };
 
     useEffect(() => {
         fetchData(); // Initial fetch
+        fetchPi4Data(); // Initial fetch
+        fetchCluter2Data(); // Initial fetch
 
         const interval = setInterval(() => {
             fetchData(); // Fetch every 9 seconds
+            fetchPi4Data(); // Fetch every 9 seconds
+            fetchCluter2Data(); // Fetch every 9 seconds
         }, 9000);
 
         return () => clearInterval(interval);
@@ -46,53 +95,31 @@ export default function DynamicStats() {
     const baseTime = Date.now();
     const timeVariation = Math.sin(baseTime / 10000) * 0.5; // Slow oscillation
 
-    // Use real data for the active node (raspberrypi5) and simulate the others
+    // Use real data from all nodes
     const allNodes = [
         {
             hostname: 'raspberrypi5',
-            platform: "linux",
-            arch: "arm64",
-            cpuTemp: systemInfo.cpuTemp + timeVariation,
-            cpuUsage: systemInfo.cpuUsage.map(usage => Math.round(usage * 10) / 10),
-            memoryUsage: {
-                total: systemInfo.memoryUsage.total,
-                used: systemInfo.memoryUsage.used,
-                free: systemInfo.memoryUsage.free
-            }
+            platform: systemInfo?.os.platform || "linux",
+            arch: systemInfo?.os.arch || "arm64",
+            cpuTemp: systemInfo?.cpuTemp || 0,
+            cpuUsage: systemInfo?.cpuUsage || [0, 0, 0, 0],
+            memoryUsage: systemInfo?.memoryUsage || { total: 0, used: 0, free: 0 }
         },
         {
             hostname: 'pi4',
-            platform: "linux",
-            arch: "arm64",
-            cpuTemp: 48.5 + timeVariation,
-            cpuUsage: [
-                Math.round((Math.max(0, 6 + Math.sin(baseTime / 5000) * 4)) * 10) / 10,
-                Math.round((Math.max(0, 5.9 + Math.cos(baseTime / 7000) * 3)) * 10) / 10,
-                Math.round((Math.max(0, 1 + Math.sin(baseTime / 6000) * 2)) * 10) / 10,
-                Math.round((Math.max(0, 5.9 + Math.cos(baseTime / 8000) * 4)) * 10) / 10
-            ],
-            memoryUsage: {
-                total: 4.0, // Raspberry Pi 4B with 4GB RAM
-                used: Math.round((1.4 + Math.cos(baseTime / 12000) * 0.1) * 100) / 100,
-                free: Math.round((2.6 - Math.cos(baseTime / 12000) * 0.1) * 100) / 100
-            }
+            platform: pi4Data?.os.platform || "linux",
+            arch: pi4Data?.os.arch || "arm64",
+            cpuTemp: pi4Data?.cpuTemp || 0,
+            cpuUsage: pi4Data?.cpuUsage || [0, 0, 0, 0],
+            memoryUsage: pi4Data?.memoryUsage || { total: 0, used: 0, free: 0 }
         },
         {
             hostname: 'cluter2',
-            platform: "linux",
-            arch: "arm64",
-            cpuTemp: 35.2 + timeVariation,
-            cpuUsage: [
-                Math.round((Math.max(0, 3 + Math.sin(baseTime / 6000) * 2)) * 10) / 10,
-                Math.round((Math.max(0, 2.5 + Math.cos(baseTime / 8000) * 1.5)) * 10) / 10,
-                Math.round((Math.max(0, 1.5 + Math.sin(baseTime / 7000) * 1)) * 10) / 10,
-                Math.round((Math.max(0, 2 + Math.cos(baseTime / 9000) * 2)) * 10) / 10
-            ],
-            memoryUsage: {
-                total: 4.0, // Raspberry Pi 4B with 4GB RAM
-                used: Math.round((0.9 + Math.sin(baseTime / 18000) * 0.08) * 100) / 100,
-                free: Math.round((3.1 - Math.sin(baseTime / 18000) * 0.08) * 100) / 100
-            }
+            platform: cluter2Data?.os.platform || "linux",
+            arch: cluter2Data?.os.arch || "arm64",
+            cpuTemp: cluter2Data?.cpuTemp || 0,
+            cpuUsage: cluter2Data?.cpuUsage || [0, 0, 0, 0],
+            memoryUsage: cluter2Data?.memoryUsage || { total: 0, used: 0, free: 0 }
         }
     ];
 
@@ -125,13 +152,14 @@ export default function DynamicStats() {
                                 <h2 className="text-xl font-semibold text-foreground">
                                     {node.hostname}
                                     {index === 0 && " (Real Data - 8GB RAM)"}
-                                    {index > 0 && " (Simulated - 4GB RAM)"}
+                                    {index === 1 && " (Real Data - 4GB RAM)"}
+                                    {index === 2 && " (Simulated - 4GB RAM)"}
                                 </h2>
                                 <div className="flex items-center space-x-2">
                                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                                     <span className="text-sm text-green-600 font-medium">Online</span>
-                                    {index === 0 && <span className="text-xs text-blue-600">(Live)</span>}
-                                    {index > 0 && <span className="text-xs text-muted-foreground">(Simulated)</span>}
+                                    {index <= 1 && <span className="text-xs text-blue-600">(Live)</span>}
+                                    {index === 2 && <span className="text-xs text-muted-foreground">(Simulated)</span>}
                                 </div>
                             </div>
 
