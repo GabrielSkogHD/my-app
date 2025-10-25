@@ -48,34 +48,14 @@ export default function DynamicStats() {
 
     const fetchPi4Data = async () => {
         try {
-            // Use real API for localhost, simulate for production
-            if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-                const response = await fetch("http://pi4:3001/api/system-details", { cache: "no-store" });
-                if (response.ok) {
-                    const info = await response.json();
-                    setPi4Data(info);
-                    setNodeStatus(prev => ({ ...prev, pi4: true }));
-                } else {
-                    setNodeStatus(prev => ({ ...prev, pi4: false }));
-                }
-            } else {
-                // Simulate data for production
-                const simulatedData = {
-                    os: {
-                        hostname: "pi4",
-                        platform: "linux",
-                        arch: "arm64"
-                    },
-                    cpuTemp: 45.2 + Math.random() * 5,
-                    cpuUsage: [Math.random() * 10, Math.random() * 10, Math.random() * 10, Math.random() * 10],
-                    memoryUsage: {
-                        total: 4.0,
-                        used: 1.5 + Math.random() * 1.5,
-                        free: 4.0 - (1.5 + Math.random() * 1.5)
-                    }
-                };
-                setPi4Data(simulatedData);
+            // Use proxy endpoint for both localhost and production
+            const response = await fetch("/api/pi4-stats", { cache: "no-store" });
+            if (response.ok) {
+                const info = await response.json();
+                setPi4Data(info);
                 setNodeStatus(prev => ({ ...prev, pi4: true }));
+            } else {
+                setNodeStatus(prev => ({ ...prev, pi4: false }));
             }
         } catch (error) {
             console.error("Error fetching pi4 data:", error);
@@ -85,34 +65,14 @@ export default function DynamicStats() {
 
     const fetchCluter2Data = async () => {
         try {
-            // Use real API for localhost, simulate for production
-            if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-                const response = await fetch("http://cluter2:3001/api/system-details", { cache: "no-store" });
-                if (response.ok) {
-                    const info = await response.json();
-                    setCluter2Data(info);
-                    setNodeStatus(prev => ({ ...prev, cluter2: true }));
-                } else {
-                    setNodeStatus(prev => ({ ...prev, cluter2: false }));
-                }
-            } else {
-                // Simulate data for production
-                const simulatedData = {
-                    os: {
-                        hostname: "cluter2",
-                        platform: "linux",
-                        arch: "arm64"
-                    },
-                    cpuTemp: 42.8 + Math.random() * 5,
-                    cpuUsage: [Math.random() * 8, Math.random() * 8, Math.random() * 8, Math.random() * 8],
-                    memoryUsage: {
-                        total: 4.0,
-                        used: 1.2 + Math.random() * 1.8,
-                        free: 4.0 - (1.2 + Math.random() * 1.8)
-                    }
-                };
-                setCluter2Data(simulatedData);
+            // Use proxy endpoint for both localhost and production
+            const response = await fetch("/api/cluter2-stats", { cache: "no-store" });
+            if (response.ok) {
+                const info = await response.json();
+                setCluter2Data(info);
                 setNodeStatus(prev => ({ ...prev, cluter2: true }));
+            } else {
+                setNodeStatus(prev => ({ ...prev, cluter2: false }));
             }
         } catch (error) {
             console.error("Error fetching cluter2 data:", error);
