@@ -47,7 +47,7 @@ export default function DynamicStats() {
 
     const fetchCluter2Data = async () => {
         try {
-            const response = await fetch("http://192.168.50.50:3001/api/system-details", { cache: "no-store" });
+            const response = await fetch("http://cluter2:3001/api/system-details", { cache: "no-store" });
             const info = await response.json();
             setCluter2Data(info);
         } catch (error) {
